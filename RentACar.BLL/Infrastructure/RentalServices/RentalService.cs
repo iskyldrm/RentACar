@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.BLL.Infrastructure.RentalServices
 {
-    public class RentalService
+    public class RentalService : IRentalService
     {
         private readonly IRentalBuilder _rentalBuilder;
         private readonly List<Rental> _rentals;
