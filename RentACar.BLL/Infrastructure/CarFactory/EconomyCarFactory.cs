@@ -11,7 +11,15 @@ namespace RentACar.BLL.Infrastructure.CarFactory
     {
         public Car CreateCar()
         {
-            return new EconomyCar();
+            return new EconomyCar
+            {
+                Make = "Tofaş",
+                Model = "Uzun",
+                Color = "Kırmızı",
+                Year = 1990,
+                IsElectric = false,
+                HasHatchback = false
+            };
         }
     }
 }

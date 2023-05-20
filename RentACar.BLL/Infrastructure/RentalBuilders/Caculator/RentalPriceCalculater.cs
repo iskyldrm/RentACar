@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACar.BLL.Infrastructure.RentalBuilder.Caculator
+namespace RentACar.BLL.Infrastructure.RentalBuilders.Caculator
 {
     public class RentalPriceCalculater : IRentalPriceCalculater
     {

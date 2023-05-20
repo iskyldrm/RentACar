@@ -1,4 +1,4 @@
-﻿using RentACar.BLL.Infrastructure.RentalBuilder.RentalRequires;
+﻿using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
 using System;
 using System.Collections.Generic;
 using System.Linq;

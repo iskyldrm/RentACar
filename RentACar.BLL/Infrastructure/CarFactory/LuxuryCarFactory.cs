@@ -11,7 +11,17 @@ namespace RentACar.BLL.Infrastructure.CarFactory
     {
         public Car CreateCar()
         {
-            return new LuxuryCar();
+            return new LuxuryCar
+            {
+
+                Make = "Mercedes",
+                Model = "c180",
+                Color = "Beyaz",
+                Year = 2016,
+                HasLeatherSeats = true,
+                HasSunroof = true
+
+            };
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using RentACar.BLL.Entites;
-using RentACar.BLL.Infrastructure.RentalBuilder.Caculator;
+using RentACar.BLL.Infrastructure.RentalBuilders.Caculator;
 
-namespace RentACar.BLL.Infrastructure.RentalBuilder.RentalRequires
+namespace RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires
 {
     public class Rental
     {

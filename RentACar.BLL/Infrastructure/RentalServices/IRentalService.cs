@@ -1,4 +1,5 @@
-﻿using RentACar.BLL.Infrastructure.RentalBuilder.RentalRequires;
+﻿using RentACar.BLL.Entites;
+using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace RentACar.BLL.Infrastructure.RentalServices
 {
     public interface IRentalService
     {
-        public Rental RentCar(string carType, Customer customer, DateTime startDate, DateTime endDate);
+        public Rental RentCar(Car car, Customer customer, DateTime startDate, DateTime endDate);
         public List<Rental> GetRentals();
     }
 }

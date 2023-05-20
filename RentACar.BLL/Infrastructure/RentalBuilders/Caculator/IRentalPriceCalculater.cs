@@ -1,6 +1,6 @@
 ﻿using RentACar.BLL.Entites;
 
-namespace RentACar.BLL.Infrastructure.RentalBuilder.Caculator
+namespace RentACar.BLL.Infrastructure.RentalBuilders.Caculator
 {
     public interface IRentalPriceCalculater
     {

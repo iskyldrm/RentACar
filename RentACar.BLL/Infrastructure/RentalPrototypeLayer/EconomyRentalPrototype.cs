@@ -1,6 +1,6 @@
 ﻿using RentACar.BLL.Entites;
-using RentACar.BLL.Infrastructure.RentalBuilder.Caculator;
-using RentACar.BLL.Infrastructure.RentalBuilder.RentalRequires;
+using RentACar.BLL.Infrastructure.RentalBuilders.Caculator;
+using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
 using System;
 using System.Collections.Generic;
 using System.Linq;

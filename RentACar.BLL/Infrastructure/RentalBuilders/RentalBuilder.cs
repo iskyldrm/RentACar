@@ -1,6 +1,7 @@
 ﻿ using RentACar.BLL.Entites;
-using RentACar.BLL.Infrastructure.RentalBuilder;
-using RentACar.BLL.Infrastructure.RentalBuilder.RentalRequires;
+using RentACar.BLL.Infrastructure.RentalBuilders;
+using RentACar.BLL.Infrastructure.RentalBuilders.Caculator;
+using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,35 +12,44 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders
 {
     public class RentalBuilder : IRentalBuilder
     {
-        private readonly RentalBuilder _rentalbuilder;
         private Car _car;
         private Customer _customer;
         private DateTime _startDate;
         private DateTime _endDate;
 
-        public RentalBuilder SetCar(Car car)
+
+        public IRentalBuilder SetCar(Car car)
         {
-            _car = car;
-            return this._rentalbuilder.SetCar(car);
+            if (car is  LuxuryCar)
+            {
+                this._car = (LuxuryCar)car;
+            }
+            if (car is EconomyCar)
+            {
+                this._car = (EconomyCar)car;
+            }
+            
+            return this;
         }
 
-        public RentalBuilder SetCustomer(Customer customer)
+        public IRentalBuilder SetCustomer(Customer customer)
         {
-            _customer = customer;
-            return this._rentalbuilder.SetCustomer(customer);
+            this._customer = customer;
+            return this;
         }
 
-        public RentalBuilder SetStartDate(DateTime startDate)
+        public IRentalBuilder SetStartDate(DateTime startDate)
         {
-            _startDate = startDate;
-            return this._rentalbuilder.SetStartDate(startDate);
+            this._startDate = startDate;
+            return this;
         }
 
-        public RentalBuilder SetEndDate(DateTime endDate)
+        public IRentalBuilder SetEndDate(DateTime endDate)
         {
-            _endDate = endDate;
-            return this._rentalbuilder.SetEndDate(endDate);
+            this._endDate = endDate;
+            return this;
         }
+
 
         public decimal PriceCalculater()
         {
@@ -50,9 +60,45 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders
 
         public Rental Build()
         {
-            Rental rental = new Rental();
-            rental.RentalPrice = PriceCalculater();
+            if (_car == null)
+            {
+                throw new Exception("Car is required to create rental.");
+            }
+
+            if (_customer == null)
+            {
+                throw new Exception("Customer is required to create rental.");
+            }
+
+            if (_startDate == default(DateTime))
+            {
+                throw new Exception("Start date is required to create rental.");
+            }
+
+            if (_endDate == default(DateTime))
+            {
+                throw new Exception("End date is required to create rental.");
+            }
+
+            var rental = new Rental
+            {
+
+                Car = _car,
+                Customer = _customer,
+                StartDate = _startDate,
+                EndDate = _endDate,
+                RentalPrice = PriceCalculater()
+            };
+
             return rental;
         }
+
+        
+        //public Rental Build()
+        //{
+        //    Rental rental = new Rental();
+        //    rental.RentalPrice = PriceCalculater();
+        //    return rental;
+        //}
     }
 }
