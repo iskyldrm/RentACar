@@ -4,6 +4,7 @@ using RentACar.BLL.Entites;
 using RentACar.BLL.Infrastructure.CarFactory;
 using RentACar.BLL.Infrastructure.CarRentalAbstractFactory;
 using RentACar.BLL.Infrastructure.Mediator;
+using RentACar.BLL.Infrastructure.Observer;
 using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
 using RentACar.BLL.Infrastructure.RentalServices;
 using RentACar.BLL.Infrastructure.Singleton;
@@ -18,6 +19,8 @@ namespace RentACar.API.Controllers
         private ICarFactory carFactory;
         private List<Rental> _rentals;
         private readonly IRentalService _rentalService;
+        IRentalObserver carObserver;
+        IRentalObserver customerObserver;
         public RentalController()
         {
             _rentalService = RentalServiceSingleton.Instance;
@@ -31,6 +34,12 @@ namespace RentACar.API.Controllers
         [Route("rental")]
         public IActionResult RentCar([FromBody] RentCarRequest request)
         {
+            carObserver = new RentalCarObserver();
+            customerObserver = new RentalCustomerObserver();
+            _rentalService.AddObserver(carObserver);
+            _rentalService.AddObserver(customerObserver);
+
+
             Car car = null;
             Customer customer = new Customer();
             customer.FirstName = request.CustomerName;
@@ -53,7 +62,10 @@ namespace RentACar.API.Controllers
             car = carFactory.CreateCar();
             var rental = _carRental.CreateRental(car, customer, request.StartDate, request.EndDate);
 
-            
+
+             
+
+
 
             return Ok(rental);
         }
@@ -62,8 +74,8 @@ namespace RentACar.API.Controllers
         public ActionResult<Rental> RentalInProcess()
         {
             _rentals = _rentalService.GetRentals();
-            IRentalMediator customerMediator = new RentalCustomerMediator();
-            IRentalMediator carMediator = new RentalCarMediator();
+            IRentalMediator customerMediator  = new RentalCustomerMediator();
+            IRentalMediator carMediator  = new RentalCarMediator();
 
             foreach (var item in _rentals)
             {
@@ -81,6 +93,16 @@ namespace RentACar.API.Controllers
         {
             
             return Ok(_rentalService.GetRentals());
+        }
+
+        [HttpGet("changerental")]
+        public ActionResult<List<Rental>> ChangeRental()
+        {
+            _rentals = _rentalService.GetRentals();
+            _rentals[0].RentalPrice = 40;
+
+            _rentalService.ChangeRental(_rentals[0]);
+            return Ok(_rentals);
         }
 
     }

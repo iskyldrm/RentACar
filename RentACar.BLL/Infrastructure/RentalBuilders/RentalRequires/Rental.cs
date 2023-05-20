@@ -10,7 +10,8 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires
         {
 
         }
-        
+
+        public Guid Id { get; set; }
         public Car Car { get; set; }
         public Customer Customer { get; set; }
         public DateTime StartDate { get; set; }
@@ -18,6 +19,9 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires
         public decimal RentalPrice { get; set; }
         public string NotifyForCustomer { get; set; }
         public string NotifyForCar { get; set; }
+        public bool ObserverStarted { get; set; } = false;
+        public string PriceHistoryForCustomer { get; set; }
+        public string PriceHistoryForCar { get; set; }
 
         public string SomeEventForCustomer(IRentalMediator _rentalMediator)
         {

@@ -1,6 +1,7 @@
 ﻿using RentACar.BLL.Entites;
 using RentACar.BLL.Infrastructure.CarFactory;
 using RentACar.BLL.Infrastructure.Mediator;
+using RentACar.BLL.Infrastructure.Observer;
 using RentACar.BLL.Infrastructure.RentalBuilders;
 using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
 using System;
@@ -16,13 +17,15 @@ namespace RentACar.BLL.Infrastructure.RentalServices
     {
         private readonly IRentalBuilder _rentalBuilder;
         private readonly List<Rental> _rentals;
-        private ICarFactory _carFactory; 
+        private ICarFactory _carFactory;
+        private readonly List<IRentalObserver> observers;
 
 
         public RentalService(IRentalBuilder rentalBuilder)
         {
             _rentalBuilder = new RentalBuilder();
             _rentals = new List<Rental>();
+            observers = new List<IRentalObserver>();
         }
 
         public Rental RentCar(Car car, Customer customer, DateTime startDate, DateTime endDate)
@@ -32,7 +35,15 @@ namespace RentACar.BLL.Infrastructure.RentalServices
                 .SetCustomer(customer)
                 .SetStartDate(startDate)
                 .SetEndDate(endDate).Build();
+
+
             _rentals.Add(rental);
+
+            foreach (var observer in observers)
+            {
+                observer.Start(rental);
+            }
+
             return rental;
         }
 
@@ -41,5 +52,31 @@ namespace RentACar.BLL.Infrastructure.RentalServices
             return _rentals;
         }
 
+        public void AddObserver(IRentalObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void RemoveObserver(IRentalObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public List<Rental> ChangeRental(Rental rental)
+        {
+            foreach (var observer in observers)
+            {
+                observer.ChangePrice(rental);
+            }
+            foreach (var item in _rentals)
+            {
+                if (item.Id == rental.Id)
+                {
+                    item.RentalPrice = rental.RentalPrice;
+                }
+            }
+
+            return _rentals;
+        }
     }
 }

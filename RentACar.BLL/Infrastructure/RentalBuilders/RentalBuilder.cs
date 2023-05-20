@@ -84,7 +84,7 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders
 
             var rental = new Rental
             {
-
+                Id = Guid.NewGuid(),
                 Car = _car,
                 Customer = _customer,
                 StartDate = _startDate,
