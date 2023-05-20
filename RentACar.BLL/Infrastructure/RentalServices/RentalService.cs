@@ -1,5 +1,6 @@
 ﻿using RentACar.BLL.Entites;
 using RentACar.BLL.Infrastructure.CarFactory;
+using RentACar.BLL.Infrastructure.Mediator;
 using RentACar.BLL.Infrastructure.RentalBuilders;
 using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
 using System;
@@ -15,7 +16,8 @@ namespace RentACar.BLL.Infrastructure.RentalServices
     {
         private readonly IRentalBuilder _rentalBuilder;
         private readonly List<Rental> _rentals;
-        private ICarFactory _carFactory;
+        private ICarFactory _carFactory; 
+
 
         public RentalService(IRentalBuilder rentalBuilder)
         {

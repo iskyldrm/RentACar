@@ -21,5 +21,10 @@ namespace RentACar.BLL.Infrastructure.CarRentalAbstractFactory
         {
             return _rentalService.RentCar(car, customer, startDate, endDate);
         }
+
+        public override List<Rental> GetRentals()
+        {
+            return _rentalService.GetRentals();
+        }
     }
 }

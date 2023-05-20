@@ -6,5 +6,6 @@ namespace RentACar.BLL.Infrastructure.CarRentalAbstractFactory
     public abstract class CarRentalFactory
     {
         public abstract Rental CreateRental(Car car, Customer customer, DateTime startDate, DateTime endDate);
+        public abstract List<Rental> GetRentals();
     }
 }

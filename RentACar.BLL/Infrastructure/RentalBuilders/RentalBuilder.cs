@@ -22,11 +22,13 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders
         {
             if (car is  LuxuryCar)
             {
-                this._car = (LuxuryCar)car;
+                this._car = new LuxuryCar();
+                this._car = car;
             }
             if (car is EconomyCar)
             {
-                this._car = (EconomyCar)car;
+                this._car = new EconomyCar();
+                this._car = car;
             }
             
             return this;
@@ -92,13 +94,5 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders
 
             return rental;
         }
-
-        
-        //public Rental Build()
-        //{
-        //    Rental rental = new Rental();
-        //    rental.RentalPrice = PriceCalculater();
-        //    return rental;
-        //}
     }
 }

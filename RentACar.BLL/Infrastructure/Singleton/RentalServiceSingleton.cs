@@ -1,4 +1,5 @@
-﻿using RentACar.BLL.Infrastructure.RentalBuilders;
+﻿using RentACar.BLL.Infrastructure.Mediator;
+using RentACar.BLL.Infrastructure.RentalBuilders;
 using RentACar.BLL.Infrastructure.RentalServices;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace RentACar.BLL.Infrastructure.Singleton
         private static readonly object lockObject = new object();
         private static RentalService instance;
         private static IRentalBuilder _rentalBuilder;
+
 
         public static RentalService Instance
         {
