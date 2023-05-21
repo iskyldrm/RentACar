@@ -19,5 +19,7 @@ namespace RentACar.BLL.Infrastructure.RentalServices
         public void AddObserver(IRentalObserver observer);
 
         public void RemoveObserver(IRentalObserver observer);
+
+        public List<Rental> HandleRequest();
     }
 }

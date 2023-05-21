@@ -22,6 +22,8 @@ namespace RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires
         public bool ObserverStarted { get; set; } = false;
         public string PriceHistoryForCustomer { get; set; }
         public string PriceHistoryForCar { get; set; }
+        public bool FillFuelTank { get; set; } = false;
+        public bool Insurance { get; set; } = false;
 
         public string SomeEventForCustomer(IRentalMediator _rentalMediator)
         {

@@ -1,5 +1,6 @@
 ﻿using RentACar.BLL.Entites;
 using RentACar.BLL.Infrastructure.CarFactory;
+using RentACar.BLL.Infrastructure.ChainOfReponsibility;
 using RentACar.BLL.Infrastructure.Mediator;
 using RentACar.BLL.Infrastructure.Observer;
 using RentACar.BLL.Infrastructure.RentalBuilders;
@@ -75,6 +76,25 @@ namespace RentACar.BLL.Infrastructure.RentalServices
                     item.RentalPrice = rental.RentalPrice;
                 }
             }
+
+            return _rentals;
+        }
+
+        public List<Rental> HandleRequest()
+        {
+
+            IRequestHandler fuelHandler = new FuelRequestHandler();
+            IRequestHandler insuranceHandler = new InsuranceRequestHandler();
+            // Set the chain of responsibility
+            fuelHandler.SetNextHandler(insuranceHandler);
+
+            // Create the rental request
+            Request fuelRequest = new FuelRequest();
+            Request insuranceRequest = new InsuranceRequest();
+
+            // Process the requests
+            _rentals[1] = fuelHandler.HandleRequest(fuelRequest, _rentals[1]);
+            _rentals[1] = fuelHandler.HandleRequest(insuranceRequest, _rentals[1]);
 
             return _rentals;
         }

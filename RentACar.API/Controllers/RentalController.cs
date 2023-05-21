@@ -105,5 +105,13 @@ namespace RentACar.API.Controllers
             return Ok(_rentals);
         }
 
+        [HttpGet("requesthandle")]
+        public ActionResult<List<Rental>> HandleRequest()
+        {
+            _rentals = _rentalService.HandleRequest();
+
+            return Ok(_rentals);
+        }
+
     }
 }
