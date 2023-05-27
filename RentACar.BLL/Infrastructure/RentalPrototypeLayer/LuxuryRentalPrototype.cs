@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace RentACar.BLL.Infrastructure.RentalPrototypeLayer
 {
-    public class EconomyRentalPrototype : RentalPrototype
+    public class LuxuryRentalPrototype : RentalPrototype
     {
         private readonly Rental _rental;
 
-        public EconomyRentalPrototype(Rental rental)
+        public LuxuryRentalPrototype(Rental rental)
         {
             _rental = rental;
         }
@@ -37,7 +37,8 @@ namespace RentACar.BLL.Infrastructure.RentalPrototypeLayer
                 RentalPrice = _rental.RentalPrice
             };
 
-          
+            
+
             return rental;
         }
     }

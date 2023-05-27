@@ -6,6 +6,7 @@ using RentACar.BLL.Infrastructure.CarRentalAbstractFactory;
 using RentACar.BLL.Infrastructure.Mediator;
 using RentACar.BLL.Infrastructure.Observer;
 using RentACar.BLL.Infrastructure.RentalBuilders.RentalRequires;
+using RentACar.BLL.Infrastructure.RentalPrototypeLayer;
 using RentACar.BLL.Infrastructure.RentalServices;
 using RentACar.BLL.Infrastructure.Singleton;
 
@@ -111,6 +112,35 @@ namespace RentACar.API.Controllers
             _rentals = _rentalService.HandleRequest();
 
             return Ok(_rentals);
+        }
+
+        [HttpGet("clone")]
+        public ActionResult<Rental> Clone(string id)
+        {
+            RentalPrototype rentalPrototype = null;
+            _rentals = _rentalService.GetRentals();
+            Rental rental = new Rental();
+            foreach (var item in _rentals)
+            {
+                if (item.Id.ToString() == id)
+                {
+                    rental = item;
+                }
+            }
+            if (rental.Car is EconomyCar)
+            {
+                rentalPrototype = new EconomyRentalPrototype(rental);
+            }
+            else if(rental.Car is LuxuryCar)
+            {
+                rentalPrototype = new LuxuryRentalPrototype(rental);
+            }
+            else
+            {
+                throw new FormatException("hatalı Id");
+            }
+
+            return Ok(rentalPrototype.Clone());
         }
 
     }
